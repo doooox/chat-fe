@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DEFAULT_QUERY_OPTIONS } from "./utils/static";
+import "./index.css";
 
 const theme = createTheme({});
 

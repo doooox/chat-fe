@@ -4,11 +4,15 @@ import SinginPage from "./pages/SinginPage";
 import SingupPage from "./pages/SingupPage";
 import ChatPage from "./pages/ChatPage";
 import SingoutPage from "./pages/SingoutPage";
+import CreateChatRoom from "./pages/CreateChatRoom";
 
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path={ROUTES.MAIN} element={<ChatPage />}></Route>
+      <Route path={ROUTES.MAIN} element={<ChatPage />}>
+        <Route path={ROUTES.CHATROOM}></Route>
+      </Route>
+      <Route path={ROUTES.CREATECHATROOM} element={<CreateChatRoom />} />
       <Route path={ROUTES.SINGIN} element={<SinginPage />}></Route>
       <Route path={ROUTES.SINGUP} element={<SingupPage />}></Route>
       <Route path={ROUTES.SINGOUT} element={<SingoutPage />}></Route>

@@ -1,9 +1,11 @@
 import { IRoute } from "../types/navigation.types"
 export const ROUTES = {
     MAIN: "/",
+    CHATROOM: "/:id",
     SINGIN: "/singin",
     SINGUP: "/singup",
     SINGOUT: "/singout",
+    CREATECHATROOM: "/create"
 }
 
 export const NAVIGATION_ROUTES: IRoute[] = [
@@ -31,6 +33,8 @@ export const ENDPOINTS = {
     SINGIN: "/auth/singin",
     SINGUP: "/auth/singup",
     SINGOUT: "/auth/singout",
+    CHATROOMS: "/chat/",
+    CREATECHATROOM: "/chat/create"
 }
 
 export type StorageKeys = "user"
