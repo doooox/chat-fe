@@ -5,6 +5,8 @@ import { Box, Button, Container } from "@mui/material";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatRoom from "../components/ChatRoom";
 import { useEffect } from "react";
+import MessagesComponent from "../components/MessagesComponent";
+import CreateMessageComponent from "../components/CreateMessageComponent";
 
 const ChatPage = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     refetch();
-  }, [chatRooms]);
+  }, [chatRooms, refetch]);
 
   return (
     <>
@@ -22,16 +24,21 @@ const ChatPage = () => {
         spacing={2}
         columns={16}
         style={{
-          backgroundColor: "#4EAC6D",
+          backgroundColor: "#037baa",
           width: "100%",
           height: "100vh",
           margin: "0",
           padding: "1rem",
           overflow: "hidden",
-          overflowY: "scroll",
         }}
       >
-        <Grid xs={6} md={4} lg={4} xl={2}>
+        <Grid
+          xs={6}
+          md={4}
+          lg={4}
+          xl={2}
+          style={{ height: "90vh", overflow: "scroll" }}
+        >
           <h1>Chat Rooms</h1>
           {chatRooms?.map((room) => (
             <Box
@@ -57,7 +64,9 @@ const ChatPage = () => {
               </Button>
             </Box>
           ))}
-          <Button href={ROUTES.CREATECHATROOM}>Add Chat Room</Button>
+          <Button href={ROUTES.CREATECHATROOM} style={{ color: "whitesmoke" }}>
+            Add Chat Room
+          </Button>
         </Grid>
         <Grid
           xs={10}
@@ -65,13 +74,19 @@ const ChatPage = () => {
           lg={12}
           xl={14}
           style={{
-            backgroundColor: "#fdfdfd",
+            backgroundColor: "#cecdcd",
             borderRadius: "20px",
           }}
         >
           {chatRooms?.map((room) =>
             id === room._id ? <ChatRoom chatRoom={room} /> : ""
           )}
+          <Grid>
+            <MessagesComponent />
+          </Grid>
+          <Grid>
+            <CreateMessageComponent />
+          </Grid>
         </Grid>
       </Grid>
       <Container maxWidth="xl">

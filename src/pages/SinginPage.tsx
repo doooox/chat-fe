@@ -42,7 +42,7 @@ export default function SigninPage() {
       spacing={2}
       columns={16}
       style={{
-        backgroundColor: "#4EAC6D",
+        backgroundColor: "#037baa",
         width: "100%",
         height: "100vh",
         margin: "0",
@@ -136,7 +136,7 @@ export default function SigninPage() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                style={{ background: "#4EAC6D" }}
+                style={{ backgroundColor: "#037baa" }}
               >
                 Sign In
               </Button>

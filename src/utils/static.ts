@@ -34,7 +34,8 @@ export const ENDPOINTS = {
     SINGUP: "/auth/singup",
     SINGOUT: "/auth/singout",
     CHATROOMS: "/chat/",
-    CREATECHATROOM: "/chat/create"
+    CREATECHATROOM: "/chat/create",
+    MESSAGES: "/message"
 }
 
 export type StorageKeys = "user"
