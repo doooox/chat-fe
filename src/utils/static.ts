@@ -1,3 +1,4 @@
+import path from "path"
 import { IRoute } from "../types/navigation.types"
 export const ROUTES = {
     MAIN: "/",
@@ -25,6 +26,24 @@ export const NAVIGATION_ROUTES: IRoute[] = [
             requiredAuth: false,
             guestOnly: true,
             adminOnly: false
+        }
+    },
+    {
+        name: "chat room",
+        path: ROUTES.CHATROOM,
+        perms: {
+            requiredAuth: true,
+            guestOnly: false,
+            adminOnly: false
+        }
+    },
+    {
+        name: "Create Chat Room",
+        path: ROUTES.CREATECHATROOM,
+        perms: {
+            requiredAuth: true,
+            guestOnly: false,
+            adminOnly: true
         }
     }
 ]

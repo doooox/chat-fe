@@ -2,11 +2,13 @@ import { Alert, Box, Button, Stack, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import useAuthGuard from "../hooks/useAuthGuard";
 import { chatRoomService } from "../services/ChatRoom/chatRoomService";
 import { IChatRoomDraft } from "../types/chatRoom.types";
 import { ROUTES } from "../utils/static";
 
 const CreateChatRoom = () => {
+  useAuthGuard();
   const navigate = useNavigate();
   const {
     register,

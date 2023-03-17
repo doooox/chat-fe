@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import { useGetMessagesQuery } from "../queries/message.query";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
+import { UserContext } from "../context/UserContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,10 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const MessagesComponent = () => {
   const { id } = useParams();
-  const user = JSON.parse(localStorage.getItem("user") || "");
-
+  const { user } = useContext(UserContext);
   const { data: messages, refetch } = useGetMessagesQuery(id || "");
-  console.log(messages);
 
   useEffect(() => {
     refetch();

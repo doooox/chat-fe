@@ -4,12 +4,18 @@ import { ROUTES } from "../utils/static";
 import { Box, Button, Container } from "@mui/material";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatRoom from "../components/ChatRoom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import MessagesComponent from "../components/MessagesComponent";
 import CreateMessageComponent from "../components/CreateMessageComponent";
+import useAuthGuard from "../hooks/useAuthGuard";
+import { UserContext } from "../context/UserContext";
 
 const ChatPage = () => {
+  useAuthGuard();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   const { id } = useParams();
   const { data: chatRooms, refetch } = useGetChatRoomsQuery();
 
@@ -39,6 +45,7 @@ const ChatPage = () => {
           xl={2}
           style={{ height: "90vh", overflow: "scroll" }}
         >
+          <Button>Singout</Button>
           <h1>Chat Rooms</h1>
           {chatRooms?.map((room) => (
             <Box
@@ -64,9 +71,16 @@ const ChatPage = () => {
               </Button>
             </Box>
           ))}
-          <Button href={ROUTES.CREATECHATROOM} style={{ color: "whitesmoke" }}>
-            Add Chat Room
-          </Button>
+          {user?.isAdmin ? (
+            <Button
+              href={ROUTES.CREATECHATROOM}
+              style={{ color: "whitesmoke" }}
+            >
+              Add Chat Room
+            </Button>
+          ) : (
+            ""
+          )}
         </Grid>
         <Grid
           xs={10}
@@ -79,7 +93,7 @@ const ChatPage = () => {
           }}
         >
           {chatRooms?.map((room) =>
-            id === room._id ? <ChatRoom chatRoom={room} /> : ""
+            id === room._id ? <ChatRoom chatRoom={room} key={room._id} /> : ""
           )}
           <Grid>
             <MessagesComponent />

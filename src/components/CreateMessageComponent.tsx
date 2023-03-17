@@ -40,7 +40,6 @@ const CreateMessageComponent = () => {
   };
   useEffect(() => {
     setNewMessages(messages || []);
-    console.log(newMessages);
   }, [messages, newMessages]);
   return (
     <>
