@@ -11,6 +11,7 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useState } from "react";
 import { useGetMessagesQuery } from "../queries/message.query";
+import { emmitEvent, getSocket } from "../services/SocketService";
 
 const CreateMessageComponent = () => {
   const [newMessages, setNewMessages] = useState<IMessage[]>([]);
@@ -26,6 +27,7 @@ const CreateMessageComponent = () => {
     onSuccess: () => {
       reset();
       refetch();
+      emmitEvent("message-added", "chat-message-room");
     },
   });
 
@@ -38,9 +40,15 @@ const CreateMessageComponent = () => {
     };
     create(payload);
   };
+
   useEffect(() => {
     setNewMessages(messages || []);
   }, [messages, newMessages]);
+
+  getSocket().on("message-added", () => {
+    refetch();
+  });
+
   return (
     <>
       <Box
