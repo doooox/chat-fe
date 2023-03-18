@@ -45,9 +45,7 @@ const ChatPage = () => {
           xl={2}
           style={{ height: "90vh", overflow: "scroll" }}
         >
-          <Button style={{ color: "white" }} href="/singout">
-            Singout
-          </Button>
+          <Button>Singout</Button>
           <h1>Chat Rooms</h1>
           {chatRooms?.map((room) => (
             <Box
