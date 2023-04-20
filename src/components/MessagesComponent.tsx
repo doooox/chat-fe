@@ -21,7 +21,7 @@ const MessagesComponent = () => {
 
   useEffect(() => {
     refetch();
-  }, [id, refetch]);
+  }, [id, refetch, messages]);
 
   return (
     <div
@@ -32,12 +32,12 @@ const MessagesComponent = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         padding: "1.2rem",
-        height: "70vh",
+        height: "66vh",
         overflow: "scroll",
       }}
     >
       {messages?.map((message) =>
-        id === message.chatRoom ? (
+        id === message.chatRoom && message.user ? (
           user?.username === message.user.username ? (
             <div
               key={message._id}

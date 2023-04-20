@@ -13,7 +13,6 @@ const CreateChatRoom = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<IChatRoomDraft>();
 

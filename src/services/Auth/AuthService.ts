@@ -3,6 +3,7 @@ import { IUser } from "../../types/user.types";
 import ISingup from "../../types/singup.types";
 import { ENDPOINTS } from "../../utils/static";
 import ISingin from "../../types/singin.types";
+import { getItemFormStorage } from "../../utils/storage";
 
 class AuthService {
   private httpService = httpService;
@@ -24,9 +25,13 @@ class AuthService {
   };
 
   singout = async () => {
+    const token = getItemFormStorage("token");
     return await this.httpService.request<{ message: string }>({
       url: ENDPOINTS.SINGOUT,
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   };
 }

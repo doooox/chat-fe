@@ -3,44 +3,46 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { messageService } from "../services/ChatRoom/messageService";
-import {
-  ICreateMessage,
-  IMessage,
-  IMessageDraft,
-} from "../types/message.types";
+import { ICreateMessage } from "../types/message.types";
 import SendIcon from "@mui/icons-material/Send";
-import { useEffect, useState } from "react";
 import { useGetMessagesQuery } from "../queries/message.query";
+import { emmitEvent, getSocket } from "../services/SocketService";
+import { getItemFormStorage } from "../utils/storage";
 
 const CreateMessageComponent = () => {
-  const [newMessages, setNewMessages] = useState<IMessage[]>([]);
   const { id } = useParams();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IMessageDraft>();
-  const { data: messages, refetch } = useGetMessagesQuery(id || "");
+  } = useForm<ICreateMessage>();
+  const { refetch } = useGetMessagesQuery(id || "");
   const { mutate: create } = useMutation(messageService.createMessage, {
     onSuccess: () => {
       reset();
       refetch();
+      emmitEvent("message-added", "chat-message-room");
     },
   });
 
-  const onSubmitHandler = (data: IMessageDraft) => {
-    if (!id) return;
+  const onSubmitHandler = (data: ICreateMessage) => {
+    const user = getItemFormStorage("user");
 
+    if (!id) return;
     const payload: ICreateMessage = {
       text: data.text,
       chatRoom: id,
+      user: user.id,
     };
     create(payload);
   };
-  useEffect(() => {
-    setNewMessages(messages || []);
-  }, [messages, newMessages]);
+
+  getSocket().on("message-added", () => {
+    refetch();
+  });
+
   return (
     <>
       <Box
@@ -68,7 +70,11 @@ const CreateMessageComponent = () => {
         <Button
           type="submit"
           variant="contained"
-          style={{ borderRadius: "50%", padding: "1rem", margin: "0.3rem" }}
+          style={{
+            borderRadius: "50%",
+            padding: "1rem",
+            margin: "0.3rem",
+          }}
         >
           <SendIcon style={{ fontSize: "1rem" }} />
         </Button>

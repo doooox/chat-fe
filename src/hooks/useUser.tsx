@@ -15,11 +15,13 @@ const useUser = () => {
   const singin = (user: IUser) => {
     setUser(user);
     setItemToStorage("user", JSON.stringify(user));
+    setItemToStorage("token", JSON.stringify(user.token));
     navigate(ROUTES.MAIN);
   };
   const singout = async () => {
     await authService.singout();
     clearItemFormStorage("user");
+    clearItemFormStorage("token");
     setUser(null);
     navigate(ROUTES.SINGIN);
   };

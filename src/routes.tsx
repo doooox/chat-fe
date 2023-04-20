@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import { ROUTES } from "./utils/static";
 import SinginPage from "./pages/SinginPage";
 import SingupPage from "./pages/SingupPage";
-import ChatPage from "./pages/ChatPage";
 import SingoutPage from "./pages/SingoutPage";
 import CreateChatRoom from "./pages/CreateChatRoom";
+import ChatPage from "./pages/ChatPage";
 
 const AppRoute = () => {
   return (

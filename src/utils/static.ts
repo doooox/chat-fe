@@ -1,4 +1,3 @@
-import path from "path"
 import { IRoute } from "../types/navigation.types"
 export const ROUTES = {
     MAIN: "/",
@@ -45,7 +44,17 @@ export const NAVIGATION_ROUTES: IRoute[] = [
             guestOnly: false,
             adminOnly: true
         }
-    }
+    },
+    {
+        name: "main",
+        path: ROUTES.MAIN,
+        perms: {
+            requiredAuth: true,
+            guestOnly: false,
+            adminOnly: false
+        }
+    },
+
 ]
 
 export const ENDPOINTS = {
@@ -57,7 +66,7 @@ export const ENDPOINTS = {
     MESSAGES: "/message"
 }
 
-export type StorageKeys = "user"
+export type StorageKeys = "user" | "token"
 
 export const DEFAULT_QUERY_OPTIONS = {
     defaultOptions: {

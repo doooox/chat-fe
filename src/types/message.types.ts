@@ -6,6 +6,7 @@ export interface IMessageDraft {
 
 export interface ICreateMessage extends IMessageDraft {
     chatRoom: string
+    user: string
 }
 
 export interface IMessage extends IMessageDraft {
